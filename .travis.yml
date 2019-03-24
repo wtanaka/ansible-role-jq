@@ -46,16 +46,17 @@ env:
 - DOCKER_IMAGES=ubuntu:16.04 ANSIBLE_VERSIONS=2.1.0.0
 - DOCKER_IMAGES=fedora:20 ANSIBLE_VERSIONS=2.1.0.0
 - DOCKER_IMAGES=fedora:24 ANSIBLE_VERSIONS=2.1.0.0
-
-# Use the new container infrastructure
-sudo: false
+- DOCKER_IMAGES=debian:8 ANSIBLE_VERSIONS=2.5.1
+- DOCKER_IMAGES=ubuntu:14.04 ANSIBLE_VERSIONS=2.5.1
+- DOCKER_IMAGES=ubuntu:16.04 ANSIBLE_VERSIONS=2.5.1
+- DOCKER_IMAGES=fedora:20 ANSIBLE_VERSIONS=2.5.1
+- DOCKER_IMAGES=fedora:24 ANSIBLE_VERSIONS=2.5.1
 
 services:
   - docker
 
 script:
-  - >
-    wget -O- bit.ly/ansibletest | env sh -x
+  - wget -O- bit.ly/ansibletest | env sh -x
 
 after_failure:
   - cat role-tester-ansible-master/.kitchen/logs/*.log | grep -v '^I, '
